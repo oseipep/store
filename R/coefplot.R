@@ -39,7 +39,7 @@ coefplot <-
       title <- paste0(str_to_title(y), " on ", str_to_title(x), 
                       ", ", z, ", AIC = ", uAIC)
     }
-    matt <- coefTauGamma(obj, nlevels)
+    matt <- coefTauGamma(obj)
     obsize <- coefObservations(formula, data, id, nlevels)
     if (is.null(col)) 
       col <- fields::designer.colors(col = c("red", "white", 

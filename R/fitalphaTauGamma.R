@@ -1,7 +1,9 @@
 #' @importFrom stats coef
 #' @export
 fitalphaTauGamma <-
-  function(obj,nlevels,method="mgcv"){
+  function(obj){
+    nlevels <- obj$nlevels
+    method <- obj$store.method
     matt <- matrix(NA, nlevels, nlevels)
     meds <- as.numeric(substr(names(coef(obj))[substr(names(coef(obj)),7,9)=="med"],10,10))
     gmed <- setdiff(1:nlevels,meds)

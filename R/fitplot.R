@@ -39,7 +39,7 @@ fitplot <-
       uAIC <- round(AIC(obj),2)
       title <- paste0(str_to_title(y), " on ", str_to_title(x),", ", z, ", AIC = ", uAIC)
     }
-    matt <- fitalphaTauGamma(obj,nlevels,method=method)
+    matt <- fitalphaTauGamma(obj)
     obsize <- coefObservations(formula,data,id,nlevels)
     if (is.null(col)) col <- designer.colors(col=c("red","white","blue"), x=c(0,-min(matt, na.rm=T)/(max(matt, na.rm=T)-min(matt, na.rm=T)),1))
     if (bubble){

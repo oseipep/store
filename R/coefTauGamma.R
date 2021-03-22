@@ -1,7 +1,8 @@
 #' @importFrom stats coef
 #' @export
 coefTauGamma<-
-  function(obj,nlevels){
+  function(obj){
+    nlevels <- obj$nlevels
     matt <- matrix(NA, nlevels, nlevels)
     for (i in 1:nlevels) for (j in 1:nlevels) {
       naym1 <- paste0("devmat",i,".",j)

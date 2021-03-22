@@ -42,7 +42,7 @@ plot.store <-
       }
       obsize <- coefObservations(formula,data,id,nlevels)
       if (type == "coef") {
-        matt <- coefTauGamma(x,nlevels)
+        matt <- coefTauGamma(x)
         if (is.null(col)) col <- fields::designer.colors(col=c("red","white","blue"), x=c(0,-min(matt, na.rm=T)/(max(matt, na.rm=T)-min(matt, na.rm=T)),1))
         if (bubble) {
           trait0 <- rep(1:nlevels,rep(nlevels,nlevels))
@@ -79,7 +79,7 @@ plot.store <-
           }
       }
       if (type == "fitted") { # Fitted value plot: alpha + Tau + Gamma
-        matt <- fitalphaTauGamma(x,nlevels,method=method)
+        matt <- fitalphaTauGamma(x)
         if (is.null(col)) col <- designer.colors(col=c("red","white","blue"), x=c(0,-min(matt, na.rm=T)/(max(matt, na.rm=T)-min(matt, na.rm=T)),1))
         if (bubble){
           trait0 <- rep(1:nlevels,rep(nlevels,nlevels))
