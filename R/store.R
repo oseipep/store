@@ -9,6 +9,7 @@
 #' @param id A variable name for the subjects of the \code{data}.
 #' @param pen The method of penalization to be used. If it is "none", no penalization.
 #' @param method Package implementing ordinal mixed-effect regression: either "mgcv" (the default) or "ordinal".
+#' @param model The fitting model: either "trait-state" (the default) or "trait".
 #' @param covt The covariance structure of the model; default is NULL.
 #' @return A fitted model object with response and predictor ordinal variables extracted from \code{formula}.
 #' %% @note %% ~~further notes~~
@@ -22,25 +23,27 @@
 #' ## maybe something with simulated data...
 #' @export
 store <-
-function(formula, data, id, pen="none", method="mgcv", covt=NULL) {
+function(formula, data, id, pen="none", method="mgcv", model="trait-state", covt=NULL) {
   y <- all.vars(formula)[1] # extract the variable names of response and predictor
   x <- all.vars(formula)[2]
   modmats <- get.modmats(x,data,id)
 	medmat <- modmats[[1]]    # dummy variables for median x
 	devmat <- modmats[[2]]    # dummy variables for combinations of median and current x
 	nlevels <- max(as.numeric(substr(colnames(medmat),4,4)),na.rm = TRUE)
-	if (method=="ordinal") {  
-	    rs <- paste0("medmat + devmat + ", "(1|",id,")") # full model
-        if (!is.null(covt)) rs <- paste(covt, "+", rs)
-        fmla <- as.formula(paste("factor(data[,y]) ~", rs))
+	if (method=="ordinal") { 
+	    if (model=="trait-state") {
+	      rs <- paste0("medmat + devmat + ", "(1|",id,")") # full model
+	    } else rs <- paste0("medmat + ", "(1|",id,")") # without devmat
+      if (!is.null(covt)) rs <- paste(covt, "+", rs)
+      fmla <- as.formula(paste("factor(data[,y]) ~", rs))
 	    mdl <- ordinal::clmm(fmla, data=data)
 	} 
     else {
         nlev <- length(setdiff(unique(data[,y]),NA))  # should check
         			                             # that there really are nlev levels
-        rs <- paste0("medmat + devmat + ", "s(",id,", bs='re')") # full model
-        #rs <- "medmat + devmat + s(IDs, bs='re')" # full model
-        #rs <- "medmat + s(IDs, bs='re')" # without devmat
+        if (model=="trait-state") {
+          rs <- paste0("medmat + devmat + ", "s(",id,", bs='re')") # full model
+        } else rs <- paste0("medmat + ", "s(",id,", bs='re')")  # without devmat
         if (!is.null(covt)) rs <- paste(covt, "+", rs)
         fmla <- as.formula(paste("data[,y] ~", rs))
         if (pen == "none") mdl <- mgcv::gam(fmla, data=data, method="REML", family=ocat(R=nlev))
@@ -71,6 +74,7 @@ function(formula, data, id, pen="none", method="mgcv", covt=NULL) {
 	mdl$devmat <- devmat
 	mdl$store.formula <- formula
 	mdl$store.method <- method
+	mdl$store.model <- model
 	mdl$data <- data
 	mdl$id <- id
 	mdl$nlevels <- nlevels
