@@ -9,8 +9,9 @@
 #' @param id A variable name for the subjects of the \code{data}.
 #' @param pen The method of penalization to be used. If it is "none", no penalization.
 #' @param method Package implementing ordinal mixed-effect regression: either "mgcv" (the default) or "ordinal".
-#' @param model The fitting model: either "trait-state" (the default) or "trait".
+#' @param model The model to fit: "TS" for trait-state model with random effects (the default), "trait" for trait-only model with random effects, "RE" for model with random effects only.
 #' @param covt The covariance structure of the model; default is NULL.
+#' @param save.data A logical variable if TRUE store the \code{data}; default is FALSE.
 #' @return A fitted model object with response and predictor ordinal variables extracted from \code{formula}.
 #' %% @note %% ~~further notes~~
 #' @author Philip T. Reiss and Prince P. Osei
@@ -23,7 +24,8 @@
 #' ## maybe something with simulated data...
 #' @export
 store <-
-function(formula, data, id, pen="none", method="mgcv", model="trait-state", covt=NULL) {
+function(formula, data, id, pen="none", method="mgcv", model="TS", covt=NULL,
+         save.data=FALSE) {
   y <- all.vars(formula)[1] # extract the variable names of response and predictor
   x <- all.vars(formula)[2]
   modmats <- get.modmats(x,data,id)
@@ -31,19 +33,23 @@ function(formula, data, id, pen="none", method="mgcv", model="trait-state", covt
 	devmat <- modmats[[2]]    # dummy variables for combinations of median and current x
 	nlevels <- max(as.numeric(substr(colnames(medmat),4,4)),na.rm = TRUE)
 	if (method=="ordinal") { 
-	    if (model=="trait-state") {
-	      rs <- paste0("medmat + devmat + ", "(1|",id,")") # full model
-	    } else rs <- paste0("medmat + ", "(1|",id,")") # without devmat
+	    if (model=="TS")  rs <- paste0("medmat + devmat + ", "(1|",id,")") else
+	    if (model=="trait") rs <- paste0("medmat + ", "(1|",id,")") else
+	    if (model=="RE") rs <- paste0("(1|",id,")") else
+	    stop("'model' must be 'TS', 'trait' or 'RE'")
+	    
       if (!is.null(covt)) rs <- paste(covt, "+", rs)
       fmla <- as.formula(paste("factor(data[,y]) ~", rs))
 	    mdl <- ordinal::clmm(fmla, data=data)
 	} 
     else {
-        nlev <- length(setdiff(unique(data[,y]),NA))  # should check
-        			                             # that there really are nlev levels
-        if (model=="trait-state") {
-          rs <- paste0("medmat + devmat + ", "s(",id,", bs='re')") # full model
-        } else rs <- paste0("medmat + ", "s(",id,", bs='re')")  # without devmat
+        nlev <- length(setdiff(unique(data[,y]),NA))  
+        			                                  
+        if (model=="TS") rs <- paste0("medmat + devmat + ", "s(",id,", bs='re')") else
+        if (model=="trait") rs <- paste0("medmat + ", "s(",id,", bs='re')") else
+        if (model=="RE") rs <- paste0("s(",id,", bs='re')") else
+        stop("'model' must be 'TS', 'trait' or 'RE'")
+        
         if (!is.null(covt)) rs <- paste(covt, "+", rs)
         fmla <- as.formula(paste("data[,y] ~", rs))
         if (pen == "none") mdl <- mgcv::gam(fmla, data=data, method="REML", family=ocat(R=nlev))
@@ -75,7 +81,7 @@ function(formula, data, id, pen="none", method="mgcv", model="trait-state", covt
 	mdl$store.formula <- formula
 	mdl$store.method <- method
 	mdl$store.model <- model
-	mdl$data <- data
+	if (save.data) mdl$data <- data
 	mdl$id <- id
 	mdl$nlevels <- nlevels
 	mdl$pen <- pen
