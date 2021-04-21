@@ -1,8 +1,9 @@
 #' @export
 coefObservations <-
-  function(formula,data,id,nlevels){
+  function(formula,data,id){
     y <- all.vars(formula)[1]
     x <- all.vars(formula)[2]
+    nlevels <- max(unique(data[,x]),na.rm = TRUE)
     tmp <- addmed(data,x,id)
     cyx <- list()
     indx <- 1
