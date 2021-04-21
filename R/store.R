@@ -10,7 +10,7 @@
 #' @param pen The method of penalization to be used. If it is "none", no penalization.
 #' @param method Package implementing ordinal mixed-effect regression: either "mgcv" (the default) or "ordinal".
 #' @param model The model to fit: "TS" for trait-state model with random effects (the default), "trait" for trait-only model with random effects, "RE" for model with random effects only.
-#' @param covt The covariance structure of the model; default is NULL.
+#' @param covt The covariates of the model; default is NULL.
 #' @param save.data A logical variable if TRUE store the \code{data}; default is FALSE.
 #' @return A fitted model object with response and predictor ordinal variables extracted from \code{formula}.
 #' %% @note %% ~~further notes~~
