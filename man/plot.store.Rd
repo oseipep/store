@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{store}(
   x,
-  type = c("coef", "fitted"),
+  type = c("coef"),
   bubble = FALSE,
   col = NULL,
   xlab = "State",
@@ -15,27 +15,33 @@
   range = c(0, 25),
   hjust = 0.5,
   lineheight = 1.2,
+  cex.lab = 1.5,
+  cex.main = 1.5,
   ...
 )
 }
 \arguments{
 \item{x}{A model object of class \code{\link{store}}.}
 
-\item{type}{\code{"coef"} to plot coefficients, or \code{"fitted"} to plot fitted values.}
+\item{type}{the type of model output to plot: either \code{"coef"} (the default) to plot coefficients, or \code{"fitted"} to plot fitted values.}
 
 \item{bubble}{Logical: a bubble plot if \code{TRUE}, otherwise an \code{\link{image}} plot.}
 
 \item{col}{The colors for the range of the fitted values.}
 
-\item{xlab, ylab}{x- and y-axis labels}
+\item{xlab, ylab}{x- and y-axis labels.}
 
-\item{title}{Plot title}
+\item{title}{Plot title.}
 
 \item{range}{Numeric vector of length 2 specifying the minimum and maximum size of the bubbles, if \code{bubble==TRUE}.}
 
-\item{hjust}{Horizontal justification (in [0,1])}
+\item{hjust}{Horizontal justification (in [0,1]).}
 
-\item{lineheight}{Line height}
+\item{lineheight}{Line height.}
+
+\item{cex.lab}{The magnification to be used for x and y labels.}
+
+\item{cex.main}{The magnification to be used for main titles.}
 
 \item{\dots}{Other \code{\link{graphical parameters}}.}
 }

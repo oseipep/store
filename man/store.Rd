@@ -4,24 +4,40 @@
 \alias{store}
 \title{State-trait ordinal regression}
 \usage{
-store(formula, data, id, pen = "none", method = "mgcv", covt = NULL)
+store(
+  formula,
+  data,
+  id,
+  penalize = TRUE,
+  method = "mgcv",
+  model = "TS",
+  covt = NULL,
+  save.data = TRUE,
+  ...
+)
 }
 \arguments{
-\item{formula}{An object of class \code{\link{formula}}.}
+\item{formula}{An expression of the form \code{y ~ x} representing the model.}
 
 \item{data}{A data frame containing the variables in the model.}
 
 \item{id}{A variable name for the subjects of the \code{data}.}
 
-\item{pen}{The method of penalization to be used. If it is "none", no penalization.}
+\item{penalize}{A logical variable: if TRUE (the default), a non-linearity penalty is applied.}
 
-\item{method}{Package implementing ordinal mixed-effect regression: either "mgcv" (the default) or "ordinal".}
+\item{method}{Package implementing ordinal mixed-effect regression: either "\code{mgcv}" (the default) or "\code{ordinal}".}
 
-\item{covt}{The covariance structure of the model; default is NULL.}
+\item{model}{The model to fit: "TS" for trait-state model with random effects (the default), "trait" for trait-only model with random effects, "RE" for model with random effects only.}
+
+\item{covt}{The covariates of the model; default is NULL.}
+
+\item{save.data}{A logical variable if TRUE (the default) store the \code{data}.}
+
+\item{\ldots}{Other arguments, passed to \code{\link[mgcv]{gam}}.}
 }
 \value{
-A fitted model object with response and predictor ordinal variables extracted from \code{formula}.
-%% @note %% ~~further notes~~
+A fitted model object with response and predictor ordinal variables extracted from \code{formula}. 
+This is a \code{\link[mgcv]{gam}} object with some additional components.
 }
 \description{
 This function performs regression of an ordinal response on an ordinal predictor with
@@ -29,7 +45,11 @@ intensive longitudinal data. The methodology allows for separating state effects
 trait effects.
 }
 \examples{
-## maybe something with simulated data...
+\dontrun{
+mod <- store(absorbed.~stressed., data=thoughts, id="Subject")  # takes several minutes
+summary(mod)
+plot(mod)
+}
 }
 \author{
 Philip T. Reiss and Prince P. Osei
