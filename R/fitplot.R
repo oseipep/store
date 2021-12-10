@@ -35,12 +35,12 @@ fitplot <-
     y <- all.vars(formula)[1]
     x <- all.vars(formula)[2]
     if (is.null(title)) {
-      z <- ifelse(obj$pen=="none","Unpenalized","Penalized")
+      z <- ifelse(obj$penalize== FALSE, "Unpenalized", "Penalized")
       uAIC <- round(AIC(obj),2)
       title <- paste0(str_to_title(y), " on ", str_to_title(x),", ", z, ", AIC = ", uAIC)
     }
     matt <- fitalphaTauGamma(obj)
-    obsize <- coefObservations(formula,data,id,nlevels)
+    obsize <- coefObservations(formula,data,id)
     if (is.null(col)) col <- designer.colors(col=c("red","white","blue"), x=c(0,-min(matt, na.rm=T)/(max(matt, na.rm=T)-min(matt, na.rm=T)),1))
     if (bubble){
       trait0 <- rep(1:nlevels,rep(nlevels,nlevels))
@@ -69,6 +69,8 @@ fitplot <-
       title(main=title, line=lineheight,cex.main=1.5)
     }
   }
+
+
 
 
 

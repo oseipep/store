@@ -1,5 +1,5 @@
 #' @importFrom stats model.matrix
-#' @export
+#' @keywords internal
 get.modmats <-
 function(x, data,id) {
   data <- addmed(data,x,id)

@@ -1,6 +1,5 @@
-#' @export
-coefObservations <-
-  function(formula,data,id){
+#' @keywords internal
+coefObservations <- function(formula,data,id) {
     y <- all.vars(formula)[1]
     x <- all.vars(formula)[2]
     nlevels <- max(unique(data[,x]),na.rm = TRUE)
@@ -33,3 +32,4 @@ coefObservations <-
     }
     matt
   }
+
