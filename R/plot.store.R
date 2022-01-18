@@ -11,10 +11,12 @@
 #' @param range Numeric vector of length 2 specifying the minimum and maximum size of the bubbles, if \code{bubble==TRUE}.
 #' @param hjust Horizontal justification (in [0,1]).
 #' @param lineheight Line height.
-#' @param cex.lab The magnification to be used for x and y labels.
-#' @param cex.main The magnification to be used for main titles.
-#' @param \dots Other \code{\link{graphical parameters}}.
+#' @param cex.lab Magnification for x and y labels.
+#' @param cex.main Magnification for main title.
+#' @param \dots Other graphical parameters.
 #' @return None; a plot is created.
+#' @note This function assumes the \code{\link{store}} object includes the underlying data 
+#' (\code{save.data==TRUE}, the default in \code{\link{store}}).
 #' @author Prince P. Osei and Philip T. Reiss
 #' @seealso \code{\link{store}}
 #' @importFrom fields image.plot designer.colors
@@ -28,7 +30,7 @@
 #' @export
 plot.store <-
   function(x, type=c("coef"), bubble=FALSE, col=NULL, xlab="State",
-           ylab="Person-specific median", title=NULL, range=c(0,25),
+           ylab="Trait (person-specific median)", title=NULL, range=c(0,25),
            hjust=0.5,lineheight=1.2,cex.lab=1.5,cex.main=1.5,...) {
     formula <- x$store.formula
     method <- x$store.method
