@@ -10,7 +10,7 @@
   bubble = FALSE,
   col = NULL,
   xlab = "State",
-  ylab = "Person-specific median",
+  ylab = "Trait (person-specific median)",
   title = NULL,
   range = c(0, 25),
   hjust = 0.5,
@@ -39,17 +39,21 @@
 
 \item{lineheight}{Line height.}
 
-\item{cex.lab}{The magnification to be used for x and y labels.}
+\item{cex.lab}{Magnification for x and y labels.}
 
-\item{cex.main}{The magnification to be used for main titles.}
+\item{cex.main}{Magnification for main title.}
 
-\item{\dots}{Other \code{\link{graphical parameters}}.}
+\item{\dots}{Other graphical parameters.}
 }
 \value{
 None; a plot is created.
 }
 \description{
 Plots coefficients for the various trait-state combinations of a \code{\link{store}} fit.
+}
+\note{
+This function assumes the \code{\link{store}} object includes the underlying data 
+(\code{save.data==TRUE}, the default in \code{\link{store}}).
 }
 \seealso{
 \code{\link{store}}

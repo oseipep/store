@@ -19,9 +19,9 @@ store(
 \arguments{
 \item{formula}{An expression of the form \code{y ~ x} representing the model.}
 
-\item{data}{A data frame containing the variables in the model.}
+\item{data}{Data frame containing the variables in the model.}
 
-\item{id}{A variable name for the subjects of the \code{data}.}
+\item{id}{Variable name for the subjects of the \code{data}.}
 
 \item{penalize}{A logical variable: if TRUE (the default), a non-linearity penalty is applied.}
 
@@ -31,13 +31,17 @@ store(
 
 \item{covt}{The covariates of the model; default is NULL.}
 
-\item{save.data}{A logical variable if TRUE (the default) store the \code{data}.}
+\item{save.data}{A logical variable: if TRUE (the default) store the \code{data}.}
 
 \item{\ldots}{Other arguments, passed to \code{\link[mgcv]{gam}}.}
 }
 \value{
 A fitted model object with response and predictor ordinal variables extracted from \code{formula}. 
 This is a \code{\link[mgcv]{gam}} object with some additional components.
+
+When \code{model} is \code{"TS"} or \code{"trait"}, the model matrix is called \code{tsmat}. 
+Coefficient \code{tsmatmed1}, for example, is the "trait effect" associated with median predictor value 1.
+Coefficient \code{tsmat1.2} is the "state effect" of current predictor value 2 for an individual whose median is 1.
 }
 \description{
 This function performs regression of an ordinal response on an ordinal predictor with
@@ -46,13 +50,13 @@ trait effects.
 }
 \examples{
 \dontrun{
-mod <- store(absorbed.~stressed., data=thoughts, id="Subject")  # takes several minutes
+mod <- store(pleasant.~stressed., data=thoughts, id="Subject")  # takes several minutes
 summary(mod)
 plot(mod)
 }
 }
 \author{
-Philip T. Reiss and Prince P. Osei
+Prince P. Osei and Philip T. Reiss  
 %% @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
-%% @references %% ~put references to the literature/web site here ~
+%% @references Osei, P. P. and Reiss, P. T. Ordinal state-trait regression for intensive longitudinal data. Under revision.
 }
