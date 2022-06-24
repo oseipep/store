@@ -1,7 +1,7 @@
 #' Using lagged response as a predictor
 #' 
 #' By default, the model fitted by \code{\link[store]{store}} does not take serial dependence into account.
-#' A sinple way to rectify this is to add \eqn{y_{i,j-1}}, the previous value of the response, 
+#' A simple way to rectify this is to add \eqn{y_{i,j-1}}, the previous value of the response, 
 #' as a predictor in the model. While this device models serial dependence, it has 
 #' limitations: \enumerate{\item The first observation for each subject must be omitted.
 #' \item The resulting model treats the lagged response as continuous,
