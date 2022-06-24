@@ -1,5 +1,6 @@
 # Producing the tables and figures in the manuscript
 require(store)
+require(latex2exp)
 source("utils.R")
 modelfolder <- "../data/real-store/"  # where model fit objects were previously stored
 figfolder <- "../output/store-plots/" # where to put figures
@@ -23,14 +24,14 @@ pstp <- pleas$stres$pen
 # Figure 1: row 1
 pdf(paste0(figfolder,"store-pd1.pdf"),8)
 par(family="Times")
-plottstore(pstu,type="coef",xlab="",ylab="State",title="Unpenalized",
+plot(pstu,type="coef",xlab="",ylab="State",title="Unpenalized",
            cex.lab=2,cex.main=2,lineheight=1.1,
            legend.width=4.2,legend.mar=9.1,lwd=1.8)
 dev.off()
 
 pdf(paste0(figfolder,"store-pd2.pdf"),8)
 par(family="Times")
-plottstore(pstp,type="coef",xlab="",ylab="State",title="Penalized",
+plot(pstp,type="coef",xlab="",ylab="State",title="Penalized",
            cex.lab=2,cex.main=2,lineheight=1.1,legend.width=4.2,
            legend.mar=9.1,lwd=1.8)
 dev.off()
@@ -38,12 +39,12 @@ dev.off()
 # Figure 1: row 2
 pdf(paste0(figfolder,"store-pd3.pdf"),10)
 par(family="Times")
-plottstore(pstu,type="coef",bubble=T,title="",xlab="Trait",ylab="State")
+plot(pstu,type="coef",bubble=T,title="",xlab="Trait",ylab="State")
 dev.off()
 
 pdf(paste0(figfolder,"store-pd4.pdf"),10)
 par(family="Times")
-plottstore(pstp,type="coef",bubble=T,title="",xlab="Trait",ylab="State")
+plot(pstp,type="coef",bubble=T,title="",xlab="Trait",ylab="State")
 dev.off()
 
 #########################################
