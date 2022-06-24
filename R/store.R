@@ -23,7 +23,7 @@
 #' Coefficient \code{tsmat1.2} is the "state effect" of current predictor value 2 for an individual whose median is 1.
 #' 
 #' @author Prince P. Osei and Philip T. Reiss  
-#' %% @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
+#' @seealso \code{\link{lagged.response.model}}, which shows how to add the previous response value as a predictor.
 #' @references Osei, P. P. and Reiss, P. T. (2022). Ordinal state-trait regression for intensive longitudinal data. Under revision.
 #' @importFrom stats as.formula predict var
 #' @importFrom ordinal clmm       

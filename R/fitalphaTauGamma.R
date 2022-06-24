@@ -14,7 +14,7 @@ fitalphaTauGamma <-
         if (naym[1] %in% names(coef(obj)) && naym[2] %in% names(coef(obj))){
           matt[i,j] <- sum(coef(obj)[naym])}
         else {
-          if (i==gmed) matt[i,j] <- 0
+          if ((i == gmed) && (j == gmed)) matt[i,j] <- 0
           else matt[i,j] <- coef(obj)[naym[1]]
         }
       }
