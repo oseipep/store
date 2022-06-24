@@ -37,7 +37,9 @@ store(
 }
 \value{
 A fitted model object with response and predictor ordinal variables extracted from \code{formula}. 
-This is a \code{\link[mgcv]{gam}} object with some additional components.
+This is a \code{\link[mgcv]{gam}} object with some additional components, including \code{fixed.edf}, the 
+effective degrees of freedom of the fixed-effect terms, and \code{R2}, the coefficient of determination. These last two are discussed in 
+Osei and Reiss (2022)..
 
 When \code{model} is \code{"TS"} or \code{"trait"}, the model matrix is called \code{tsmat}. 
 Coefficient \code{tsmatmed1}, for example, is the "trait effect" associated with median predictor value 1.
@@ -55,8 +57,12 @@ summary(mod)
 plot(mod)
 }
 }
+\references{
+Osei, P. P. and Reiss, P. T. (2022). Ordinal state-trait regression for intensive longitudinal data. Under revision.
+}
+\seealso{
+\code{\link{lagged.response.model}}, which shows how to add the previous response value as a predictor.
+}
 \author{
-Prince P. Osei and Philip T. Reiss  
-%% @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
-%% @references Osei, P. P. and Reiss, P. T. Ordinal state-trait regression for intensive longitudinal data. Under revision.
+Prince P. Osei and Philip T. Reiss
 }

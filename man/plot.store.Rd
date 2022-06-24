@@ -6,17 +6,20 @@
 \usage{
 \method{plot}{store}(
   x,
-  type = c("coef"),
+  type = c("coef", "fitted"),
   bubble = FALSE,
   col = NULL,
   xlab = "State",
-  ylab = "Trait (person-specific median)",
+  ylab = "Person-specific median",
   title = NULL,
   range = c(0, 25),
   hjust = 0.5,
   lineheight = 1.2,
   cex.lab = 1.5,
   cex.main = 1.5,
+  legend.width = 2.4,
+  legend.mar = 6.1,
+  lwd = 1.5,
   ...
 )
 }
@@ -43,6 +46,12 @@
 
 \item{cex.main}{Magnification for main title.}
 
+\item{legend.width}{Width in characters of the legend. Default is 2.4.}
+
+\item{legend.mar}{Width in characters of legend margin that hasthe axis. Default is 6.1.}
+
+\item{lwd}{Line width of bordering lines around pixels. Default is 1.5}
+
 \item{\dots}{Other graphical parameters.}
 }
 \value{
@@ -54,6 +63,9 @@ Plots coefficients for the various trait-state combinations of a \code{\link{sto
 \note{
 This function assumes the \code{\link{store}} object includes the underlying data 
 (\code{save.data==TRUE}, the default in \code{\link{store}}).
+}
+\references{
+Osei, P. P. and Reiss, P. T. (2022). Ordinal state-trait regression for intensive longitudinal data. Under revision.
 }
 \seealso{
 \code{\link{store}}

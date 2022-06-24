@@ -2,7 +2,7 @@
 % Please edit documentation in R/m3p.R
 \name{m3p}
 \alias{m3p}
-\title{Continous state-trait ordinal regression}
+\title{Three-parameter state-trait ordinal regression}
 \usage{
 m3p(formula, data, id)
 }
@@ -18,15 +18,22 @@ A fitted three-parameter model object with a continous response and predictor or
 variables extracted from \code{formula}.
 }
 \description{
-This function performs regression of a continuous ordinal response on an ordinal predictor compared 
-with a general model in \code{\link{store}} state-trait ordinal regression.
+This function fits a "vanilla" regression model for a repeated ordinal response and an
+ordinal predictor. On the latent scale this is a linear model with a random person effect
+and three fixed effects:
+the intercept, the effect of the trait (person-level median of the predictor), 
+and the effect of the deviation of state (current predictor value) from trait. This model
+model serves as a baseline with which the more flexible model implemented by \code{\link{store}} may be compared.
+See Osei and Reiss (2022) for details.
 }
 \examples{
 ## maybe something with simulated data...
 }
+\references{
+Osei, P. P. and Reiss, P. T. (2022). Ordinal state-trait regression for intensive longitudinal data. Under revision.
+}
 \seealso{
 \code{\link{store}}
-%% @references %% ~put references to the literature/web site here ~
 }
 \author{
 Prince P. Osei and Philip T. Reiss
